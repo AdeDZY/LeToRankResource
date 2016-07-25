@@ -14,10 +14,10 @@ feat = cPickle.load(open(basedir + "test_feat.pkl")) # 2-D list. feat[q][s]: que
 truth = cPickle.load(open(basedir + "test_truth.pkl"))
 qlen = cPickle.load(open(basedir + "test_qlen.pkl"))
 
+# TODO: append your own features to feat here!
 
-# read data from trained model: shards prior, scaler
+# read data from trained model: scaler
 scaler = cPickle.load(open(basedir + "scaler.pkl", 'rb'))
-
 
 # start testing
 shardlim = 4
