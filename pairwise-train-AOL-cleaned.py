@@ -16,8 +16,8 @@ from sklearn.preprocessing import StandardScaler
 
 # constant and input files. read Zhuyun's features
 nshard = 123
-basedir = "./data/cent1-split-new/aol-train/" # TODO: cw and mqt training queries
-feat_names = cPickle.load(open(basedir + "feat_names.pkl"))
+basedir = "./data/cent1-split-new/aol-train/" # TODO: Yubin, change aol-train to mqt-train to train with MQT queries.
+feat_names = cPickle.load(open(basedir + "feat_names.pkl")) 
 print "reading files..."
 feat = cPickle.load(open(basedir + "train_feat.pkl")) 
 truth = cPickle.load(open(basedir + "train_truth.pkl"))
