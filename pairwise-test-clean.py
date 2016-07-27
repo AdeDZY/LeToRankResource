@@ -7,17 +7,20 @@ import os
 from sklearn.preprocessing import StandardScaler
 
 # constant and input files 
+print "reading data..."
 nshard = 123
-basedir = "data/cent1-split-new/cwb-test/"
+basedir = "data/cent1-split-new/cwb-test/" # contains testing query data
 feat_names = cPickle.load(open(basedir + "feat_names.pkl"))
-feat = cPickle.load(open(basedir + "test_feat.pkl")) # 2-D list. feat[q][s]: query q and shard s
-truth = cPickle.load(open(basedir + "test_truth.pkl"))
-qlen = cPickle.load(open(basedir + "test_qlen.pkl"))
+feat = cPickle.load(open(basedir + "test_feat.pkl")) # 3-D list. feat[q][s]: feature vector for query q and shard s
+truth = cPickle.load(open(basedir + "test_truth.pkl")) # ground truth
+qlen = cPickle.load(open(basedir + "test_qlen.pkl")) # query lenth
 
+# TODO: Yubin: append your own features to feat here!
+# e.g. feat[0][0].append(blockmax_score_00). Add your score for [query 0, shard 0]
+#      feat[0][0].append(0). if score for [query 0, shard 0] doesn't exist.
 
 # read data from trained model: shards prior, scaler
 scaler = cPickle.load(open("scaler.pkl", 'rb'))
-
 
 # start testing
 shardlim = 4
@@ -31,6 +34,7 @@ test_queries = [i for i in range(200)]
 if True:  
 
     # 1. filter out empty queries
+    tmp = []
     for q in test_queries:
         if qlen[q] > 0:
             tmp.append(q)
@@ -51,6 +55,7 @@ if True:
             mem_test.append((q, s))
     
     # 4. write the normalized matrix into rankSVM format
+    print "writing into svmrank format... test_cwb.feat"
     testFeatFile = open("test_cwb.feat",'w')
     for i, f in enumerate(X_test):
         qid = mem_test[i][0]+1   
@@ -65,10 +70,9 @@ if True:
     
     # 5. call rankSVM. prediction results written in "predictions_cwb"
     import os
+    print "testing...results written into predictions_cwb"
     stream = os.popen("/Users/zhuyund/Documents/11642-SearchEngines/svm_rank/svm_rank_classify test_cwb.feat model_cwb.dat predictions_cwb")
 
-    for line in stream:
-        print line
     
     ### The following lines count how many relevant documents are retrieved
     ### by LeToR, rank-s, taily, language model, redde, and bigram model.
@@ -154,7 +158,7 @@ if True:
     print "bigram: ", n_found_bi
 
 ### generate LeToR shard list
-for i in range(1, 13): # select 1 to 12 shards.
+for i in range(1, 13): # select 1 to 12 shards. TODO: Yubin, specify the number of shards here.
     with open(basedir + "/aol_l2r_all_{0}.shardlist".format(i), 'w') as fo:
         for q in range(0, 200):
         
