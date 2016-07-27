@@ -66,7 +66,7 @@ for q in train_queries:
 
 # 3. scale the feature matrix (mean-variance scaler)
 scaler = StandardScaler()
-scaler.fit_transform(X_train)
+X_train = scaler.fit_transform(X_train)
     
 # 4. write the normalized matrix into rankSVM format
 print "writing into rankSVM input file train_cwb.feat..."
@@ -88,7 +88,7 @@ trainFeatFile.close()
 # 5. call rankSVM. model stored in "model_cwb.dat"
 import os
 print "training..."
-os.popen("/Users/zhuyund/Documents/11642-SearchEngines/svm_rank/svm_rank_learn -c 1 -g 0.001 -t 0 train_cwb.feat model_cwb.dat")
+stream = os.popen("/Users/zhuyund/Documents/11642-SearchEngines/svm_rank/svm_rank_learn -c 1 -g 0.001 -t 0 train_cwb.feat model_cwb.dat")
 print "finished training! model_cwb.dat, scaler.pkl"
 
 

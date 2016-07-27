@@ -16,7 +16,7 @@ qlen = cPickle.load(open(basedir + "test_qlen.pkl"))
 
 
 # read data from trained model: shards prior, scaler
-scaler = cPickle.load(open(basedir + "scaler.pkl", 'rb'))
+scaler = cPickle.load(open("scaler.pkl", 'rb'))
 
 
 # start testing
