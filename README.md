@@ -5,14 +5,14 @@ Learning to rank resources for selective search
 - SVM Rank
 - Python sklean library
 
-
-# TODO:
-- Bug: SVMRank doesn't terminate...?
-- upload AOL and MQT training data.
-
 # How to Run:
-1. Download data. Put under this dir.
-2. Modify SVMRank path in the source code. Modify training basedir in pairwise-train-AOL-cleaned.py.
+1. Download /bos/tmp11/zhuyund/LeToRankResource/data/. Put under the same dir with source code.
+2. Modify SVMRank path in the source code. Modify training basedir (./data/aol-train/ or ./data/mqt-train/) in pairwise-train-AOL-cleaned.py.
 3. python ./pairwise-train-AOL-cleaned.py 
 4. python ./pairwise-test-clean.py
+
+# TODO:
+- upload AOL and MQT training data.
+
+
 
